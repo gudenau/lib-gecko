@@ -6,7 +6,10 @@ import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import net.gudenau.jgecko.GeckoDevice;
+import net.gudenau.jgecko.GeckoIdentifier;
 import net.gudenau.jgecko.natives.Linux;
 
 /**
@@ -14,7 +17,7 @@ import net.gudenau.jgecko.natives.Linux;
  * */
 public class LinuxImplementation implements JGeckoImplementation{
     @Override
-    public List<String> listSerialDevices(){
+    public List<GeckoIdentifier> listSerialDevices(){
         File ttyDir = new File("/sys/class/tty/");
         File[] ttyFiles = ttyDir.listFiles();
         if(ttyFiles == null){
@@ -30,11 +33,11 @@ public class LinuxImplementation implements JGeckoImplementation{
             }
         }
         devices.sort(String::compareTo);
-        return Collections.unmodifiableList(devices);
+        return Collections.unmodifiableList(devices.stream().map(LinuxGeckoIdentifier::new).collect(Collectors.toList()));
     }
     
     @Override
-    public GeckoDevice open(String device) throws IOException{
+    public GeckoDevice open(GeckoIdentifier device) throws IOException{
         return new LinuxGeckoDevice(device);
     }
     

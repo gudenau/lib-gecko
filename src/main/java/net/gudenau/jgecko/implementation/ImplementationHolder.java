@@ -17,6 +17,8 @@ public class ImplementationHolder{
             String os = System.getProperty("os.name");
             if(os.equals("Linux")){
                 implementation = new LinuxImplementation();
+            }else if(os.toLowerCase().contains("windows")){
+                implementation = new WindowsImplementation();
             }else{
                 throw new RuntimeException("Unknown OS: " + os);
             }

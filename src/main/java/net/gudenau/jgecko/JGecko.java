@@ -14,7 +14,7 @@ public class JGecko{
      *
      * @return A list of serial devices
      * */
-    public static List<String> listSerialDevices(){
+    public static List<GeckoIdentifier> listSerialDevices(){
         return getImplementation().listSerialDevices();
     }
     
@@ -25,7 +25,7 @@ public class JGecko{
      *
      * @return The opened device
      * */
-    public static GeckoDevice open(String device) throws IOException{
+    public static GeckoDevice open(GeckoIdentifier device) throws IOException{
         return getImplementation().open(device);
     }
 }

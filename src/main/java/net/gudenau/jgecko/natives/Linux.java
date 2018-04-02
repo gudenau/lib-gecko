@@ -50,6 +50,7 @@ public class Linux{
         return tcsetattr(fd, optional_actions, getBufferAddress(termios_p.buffer));
     }
     
+    @SuppressWarnings("Duplicates")
     public static int compress2(ByteBuffer dest, ByteBuffer source, int level){
         if(!Objects.requireNonNull(dest).isDirect() ||
             !Objects.requireNonNull(source).isDirect()){

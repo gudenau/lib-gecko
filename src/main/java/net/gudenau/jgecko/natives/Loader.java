@@ -1,9 +1,7 @@
 package net.gudenau.jgecko.natives;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+
 import net.gudenau.jgecko.JGecko;
 
 class Loader{
@@ -14,6 +12,9 @@ class Loader{
         
         if(os.equals("linux")){
             extension = ".so";
+        }else if(os.contains("windows")){
+            os = "windows";
+            extension = ".dll";
         }else{
             throw new RuntimeException("Unsupported OS: " + os + " " + arch);
         }

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import net.gudenau.jgecko.GeckoDevice;
+import net.gudenau.jgecko.GeckoIdentifier;
 
 import static net.gudenau.jgecko.natives.Linux.*;
 
@@ -18,8 +19,8 @@ public class LinuxGeckoDevice implements GeckoDevice{
     private final InputStream inputStream;
     private final OutputStream outputStream;
     
-    LinuxGeckoDevice(String device) throws IOException{
-        file = new RandomAccessFile("/dev/" + device, "rw");
+    LinuxGeckoDevice(GeckoIdentifier device) throws IOException{
+        file = new RandomAccessFile("/dev/" + ((LinuxGeckoIdentifier)device).getDevice(), "rw");
         fileDescriptor = getRealFD(file.getFD());
         
         if(fcntl(fileDescriptor, F_SETFL, 0) != 0){
